@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  */
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UpdateServiceInstanceRequest {
+public class UpdateServiceInstanceRequest  extends ServiceInstanceRequest {
 
 	@NotEmpty
 	@JsonSerialize
@@ -31,9 +31,12 @@ public class UpdateServiceInstanceRequest {
 	@JsonIgnore
 	private boolean async;
 
-	public UpdateServiceInstanceRequest() {} 
+	public UpdateServiceInstanceRequest() {
+		super(false);
+	} 
 	
-	public UpdateServiceInstanceRequest(String planId) {
+	public UpdateServiceInstanceRequest(String planId, boolean async) {
+		super(async);
 		this.planId = planId;
 	}
 
@@ -66,9 +69,5 @@ public class UpdateServiceInstanceRequest {
 	public UpdateServiceInstanceRequest withAsyncClient(boolean acceptsIncomplete) {
 		this.async = acceptsIncomplete;
 		return this;
-	}
-	
-	public boolean asyncClient() { 
-		return async; 
 	}
 }
